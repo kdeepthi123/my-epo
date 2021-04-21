@@ -67,13 +67,13 @@ export default class TransactionScreen extends React.Component {
       transactionType: "Issue"
     });
     //change book status
-    db.collection("books")
+    db.collection("Books")
       .doc(this.state.scannedBookId)
       .update({
         bookAvailability: false
       });
     //change number  of issued books for student
-    db.collection("students")
+    db.collection("Students")
       .doc(this.state.scannedStudentId)
       .update({
         numberOfBooksIssued: firebase.firestore.FieldValue.increment(1)
@@ -94,13 +94,13 @@ export default class TransactionScreen extends React.Component {
       transactionType: "Return"
     });
     //change book status
-    db.collection("books")
+    db.collection("Books")
       .doc(this.state.scannedBookId)
       .update({
         bookAvailability: true
       });
     //change number  of issued books for student
-    db.collection("students")
+    db.collection("Students")
       .doc(this.state.scannedStudentId)
       .update({
         numberOfBooksIssued: firebase.firestore.FieldValue.increment(-1)
@@ -114,7 +114,7 @@ export default class TransactionScreen extends React.Component {
 
   checkBookEligibility = async () => {
     const bookRef = await db
-      .collection("books")
+      .collection("Books")
       .where("bookId", "==", this.state.scannedBookId)
       .get();
     var transactionType = "";
@@ -136,7 +136,7 @@ export default class TransactionScreen extends React.Component {
 
   checkStudentEligibilityForBookIssue = async () => {
     const studentRef = await db
-      .collection("students")
+      .collection("Students")
       .where("studentId", "==", this.state.scannedStudentId)
       .get();
     var isStudentEligible = "";
